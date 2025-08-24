@@ -1,5 +1,6 @@
-<html>
+<html lang="es">
     <head>
+        <meta charset="utf-8">
         <script>
             function saludar() {
                 console.log("Hola");
@@ -84,6 +85,63 @@
                 m++;
             }
             console.log(tMarcas);
+                // Ejemplo: Evento doble clic
+                function dobleClic() {
+                    alert('¡Doble clic detectado!');
+                }
+                // Ejemplo: Evento clic derecho
+                function clicDerecho(e) {
+                    e.preventDefault();
+                    alert('Clic derecho bloqueado');
+                }
+                // Ejemplo: Mouse entra/sale
+                function mouseEnter(e) {
+                    e.target.style.background = '#d1ffd1';
+                }
+                function mouseLeave(e) {
+                    e.target.style.background = '';
+                }
+                // Ejemplo: Mouse mueve
+                function mouseMove(e) {
+                    document.getElementById('coord').innerText = `X:${e.clientX} Y:${e.clientY}`;
+                }
+                // Ejemplo: Tecla presionada
+                function teclaPresionada(e) {
+                    document.getElementById('tecla').innerText = `Tecla: ${e.key}`;
+                }
+                // Ejemplo: Input en tiempo real
+                function inputTiempoReal(e) {
+                    document.getElementById('inputReal').innerText = e.target.value;
+                }
+                // Ejemplo: Focus/Blur
+                function enfocado(e) {
+                    e.target.style.border = '2px solid green';
+                }
+                function desenfocado(e) {
+                    e.target.style.border = '';
+                }
+                // Ejemplo: Scroll
+                window.onscroll = function() {
+                    document.getElementById('scrollMsg').innerText = '¡Scroll detectado!';
+                    setTimeout(()=>document.getElementById('scrollMsg').innerText='',1000);
+                }
+                // Ejemplo: Resize
+                window.onresize = function() {
+                    document.getElementById('resizeMsg').innerText = '¡Ventana redimensionada!';
+                    setTimeout(()=>document.getElementById('resizeMsg').innerText='',1000);
+                }
+                // Ejemplo: Drag & Drop
+                function dragStart(e) {
+                    e.dataTransfer.setData('text', e.target.id);
+                }
+                function dragOver(e) {
+                    e.preventDefault();
+                }
+                function drop(e) {
+                    e.preventDefault();
+                    let data = e.dataTransfer.getData('text');
+                    e.target.appendChild(document.getElementById(data));
+                }
         </script>
     </head>
     <body>
@@ -94,6 +152,34 @@
             document.getElementById("msg").innerText = "Hola";
             document.getElementById("com").innerHTML = '<option value="1">Santiago</option><option value="2">Talca</option>';
         </script>
+            <div style="margin-bottom:10px;">
+                <button ondblclick="dobleClic();">Doble clic aquí</button>
+                <button oncontextmenu="clicDerecho(event);">Clic derecho aquí</button>
+            </div>
+            <div style="margin-bottom:10px;">
+                <span onmouseenter="mouseEnter(event);" onmouseleave="mouseLeave(event);" style="padding:5px;border:1px solid #ccc;">Pasa el mouse aquí</span>
+                <span id="coord" style="margin-left:10px;"></span>
+                <div style="width:100px;height:30px;border:1px solid #aaa;display:inline-block;" onmousemove="mouseMove(event);"></div>
+            </div>
+            <div style="margin-bottom:10px;">
+                <input type="text" onkeypress="teclaPresionada(event);" placeholder="Presiona una tecla" />
+                <span id="tecla"></span>
+            </div>
+            <div style="margin-bottom:10px;">
+                <input type="text" oninput="inputTiempoReal(event);" placeholder="Escribe algo..." />
+                <span id="inputReal"></span>
+            </div>
+            <div style="margin-bottom:10px;">
+                <input type="text" onfocus="enfocado(event);" onblur="desenfocado(event);" placeholder="Focus/Blur" />
+            </div>
+            <div style="margin-bottom:10px;">
+                <span id="scrollMsg" style="color:blue;"></span>
+                <span id="resizeMsg" style="color:green;"></span>
+            </div>
+            <div style="margin-bottom:10px;">
+                <div id="drag1" draggable="true" ondragstart="dragStart(event);" style="width:60px;height:30px;background:#f99;text-align:center;line-height:30px;">Arrastra</div>
+                <div id="dropzone" ondrop="drop(event);" ondragover="dragOver(event);" style="width:100px;height:40px;border:2px dashed #999;display:inline-block;margin-left:10px;">Suelta aquí</div>
+            </div>
         <button type="button" onclick="alert('Clic');">Evento</button>
         <button type="button" onclick="console.log('Clic');">Evento2</button>
         <button type="button" onclick="window.print();">Imprimir</button>
